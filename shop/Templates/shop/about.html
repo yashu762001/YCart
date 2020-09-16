@@ -1,0 +1,52 @@
+{% extends 'shop/basic.html' %}
+
+{% block title %} About Us  {% endblock %}
+
+{% block css %}
+
+#i1 {
+    width: 300px;
+    height: 300px;
+}
+
+{% endblock %}
+
+{% block body %}
+{% load static %}
+  <div class="container my-4 " style = "background-color: lightgrey;">
+      <h1 class="display-3" style = "color: black; font-weight: bold;">THE YCART</h1>
+      <p>We are the online shopping community. A doubt may arise that how are we different and who are we.
+      The owner of YCart Mr. Yash Mathur started this platform on 21st June 2023. He is an IIT Madras
+      graduate in branch of Civil Engineering. He wanted to sell the exclusive products on his
+      platform. On the other platforms the people are made available with all types of products from cheap
+      to expensive. But they are just an online Bazaar. He aims of targeting the rich audience and presenting them with the exclusive rich products at best prices.
+      <h2> What are Exclusive Products??</h2>
+    The products which can be bought only by the rich people and are made by the exclusive brands who just don't
+    want to sell it to the normal people because that reduces their brand's value.
+    <br>
+    Mr. Yash Mathur posess the dream of making an an separate community for the rich poeple and providing them
+    with the exclusive products at the best rate and no letting the brand's value to decrease.
+    </p>
+    </div>
+
+<div class="container my-6">
+    <!-- Example row of columns -->
+    <div class="row">
+      <div class = "col-4">
+
+          <img src = "{% static 'shop/yash.jpg' %}" id = "i1" />
+      </div>
+      <div class="col-md-8">
+        <h2>Yash Mathur(CEO)</h2>
+        <p> He is the CEO of YCart. He is a graduate from IIT Madras in the field of Civil Engineering.
+        But due to his passion of becoming a successfull entreprenuer he came up with the idea of YCart.
+        He launched the website on 21st June 2023 and launched the app on 25th June 2023. Last Year he
+        ranked 1st in the India's richest Person's list.</p>
+
+      </div>
+    </div>
+</div>
+{% endblock %}
+
+
+

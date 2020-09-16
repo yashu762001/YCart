@@ -1,0 +1,164 @@
+{% extends 'shop/basic.html' %}
+
+{% block title %}
+
+Checkout Page
+
+{% endblock %}
+
+{% block body %}
+
+<div class = "container my-2" >
+    <div class = "col">
+        <h1 style = "color: black; font-weight:bold; text-align:center;"> Step1 - Review Your Order </h1>
+<ul class="list-group" id = "items">
+
+</ul>
+        <br>
+        <h4 id="amount" style = 'border:1px solid black; font-weight:bold; text-align:center; padding-bottom:20px; color: blue; background-color: lightgrey; '></h4>
+        </div>
+    <br> <br>
+    <h1 style = "color:black; font-weight:bold; text-align:center;"> Step2 - Enter Delivery Details</h1>
+    <div class="col">
+    <form action = "/shop/checkout/" method = "post">
+        {% csrf_token %}
+        <input type =  "hidden" name = "itemsJson" id = "itemsJson">
+        <input type =  "hidden" name = "totalAmount" id = "totalAmount" >
+  <div class="form-row">
+    <div class="col-md-6 mb-3">
+      <label for="name"> Name</label>
+      <input type="text" class="form-control" id="name" name="name" placeholder="Yash" required>
+    </div>
+    <div class="col-md-6 mb-3">
+      <label for="email">Email</label>
+      <input type="email" class="form-control" id="email" name="email" placeholder="yashu762001@gmail.com" required>
+    </div>
+  </div>
+        <div class = "row">
+         <div class="col-md-6 mb-3">
+      <label for="mobile">Mobile Number</label>
+      <input type="number" class="form-control" id="mobile" name="mobile" placeholder="9876543234" required>
+    </div>
+        <div class="col-md-6 mb-3">
+      <label for="whatsapp">Whatsapp Number</label>
+      <input type="number" class="form-control" id="whatsapp" name="whatsapp" placeholder="9234567456" required>
+    </div>
+</div>
+  <div class="form-row my-10">
+    <div class="col-md-6 mb-3">
+      <label for="city">City</label>
+      <input type="text" class="form-control" id="city" name="city" placeholder="Jaipur" required>
+    </div>
+      <div class="col-md-6 mb-3">
+      <label for="address1">Address</label>
+      <input type="text" class="form-control" id="address1" name="address1" placeholder="ABC Colony" required>
+    </div>
+      <div class="col-md-6 mb-3">
+      <label for="address2">Other Address</label>
+      <input type="text" class="form-control" id="address2" name="address2" placeholder="XYZ Street" required>
+    </div>
+    <div class="col-md-3 mb-3">
+      <label for="state">State</label>
+      <input type="text" class="form-control" id="state" name="state" placeholder="State" required>
+    </div>
+    <div class="col-md-3 mb-3">
+      <label for="zip">Zip</label>
+      <input type="text" class="form-control" id="zip" name="zip" placeholder="302001" required>
+    </div>
+  </div>
+  <button class="btn btn-primary" type="submit">Place Order</button>
+</form>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block js %}
+
+<script>
+
+    if(localStorage.getItem('cart3')==null) {
+        var cart = {}
+    }
+
+    else {
+        cart = JSON.parse(localStorage.getItem('cart3'))
+        var list = Object.values(cart)
+        var z=0
+        for(var i=0; i<list.length; i++) {
+                z+=list[i]
+        }
+
+        document.getElementById('total').innerText = z
+
+    }
+
+    if(localStorage.getItem('names')==null) {
+        var prname = {}
+    }
+
+    else {
+        prname = JSON.parse(localStorage.getItem('names'))
+        updatename()
+    }
+
+    function updatename() {
+    prname = JSON.parse(localStorage.getItem('names'))
+    cart = JSON.parse(localStorage.getItem('cart3'))
+    for(var k in cart) {
+        if(cart[k]==0) {
+            delete prname[k]
+        }
+    }
+}
+
+if(localStorage.getItem('cost')==null) {
+
+       var cost = {}
+    }
+
+    else {
+        var cost = JSON.parse(localStorage.getItem('cost'))
+        localStorage.setItem('cost',JSON.stringify(cost))
+    }
+
+var str = ""
+var i=1
+var z=0
+for(items in prname) {
+    str = str + "<li class='list-group-item d-flex justify-content-between align-items-center'> "+i+". &nbsp; "+prname[items]+" <span class='badge badge-primary badge-pill'>"+cart[items]+"</span> <span class = 'badge badge-success badge-pill'> Rs. "+parseInt(cost[items])*cart[items]+" </span> </li>"
+    i+=1
+    z+=parseInt(cost[items])*cart[items]
+}
+
+if(z>2000) {
+    z = ((z - z*(10)/100) + (z - z*(10)/100)*15/100).toFixed(0)
+    let a = ""
+    a = a + `<br><h4> Discount Applicable : 10% </h4>  <h4> VAT : 15% </h4> ` + `Your Cart Total is  : Rs. ` + z
+    document.getElementById('amount').innerHTML = a
+    document.getElementById('totalAmount').value = z
+}
+
+else {
+    z = (z + (z)*15/100).toFixed(0)
+
+    let a = ""
+    a = a + `<br> <h4> VAT : 15% </h4> ` + `Total : ` + z
+    document.getElementById('amount').innerHTML = a
+    document.getElementById('totalAmount').value = parseInt(z)
+}
+
+document.getElementById('items').innerHTML = str
+
+document.getElementById('itemsJson').value = JSON.stringify(cart)
+
+{% if thank %}
+localStorage.clear()
+alert("Congratulations!! You have successfully placed your order and Your Order Id is {{id}}. You can track your order using this order id in the Tracker section of the home page.")
+document.location = "/"
+{% endif %}
+
+</script>
+
+
+{% endblock %}

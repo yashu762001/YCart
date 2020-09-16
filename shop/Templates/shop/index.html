@@ -1,0 +1,636 @@
+{% extends 'shop/basic.html' %}
+
+
+{% block css %}
+
+<!--.carousel-indicators li {-->
+<!--   height: 20px;-->
+<!--   width: 20px;-->
+
+<!--   background-color: aqua !important ;-->
+<!--}-->
+
+<!--#i1,#i2 {-->
+<!--  border: 1px solid blue;-->
+<!--  background-color: aqua;-->
+<!--  color: red;-->
+<!--  font-weight: bold;-->
+<!--}-->
+
+
+
+
+{% endblock %}
+
+{% block body %}
+<br>
+
+{% load static %}
+
+<div class = "container">
+     <h1 style="text-align: center; color: blue; font-weight: bold; border: 1px solid black; background-color: lightgreen;"> LATEST PRODUCTS </h1>
+     <br>
+     <h1 style = "text-align: center; color: black; font-weight: bold; border: 1px solid blue; background-color: aqua;"> Heavy Discounts On Specific Products From All Categories!!!!.</h1>
+    <br>
+   <div id="carouselExampleControls" class="carousel slide" data-ride = "carousel" data-interval = "2000" >
+
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+
+      <div class = "card-group">
+          {% for i in product %}
+      <div class="card" style="width: 14rem;">
+  <img src="/media/{{i.image}}" class="card-img-top" alt="...">
+  <div class="card-body">
+    <h4 class = "card-title" id = "namepr{{i.id}}"> {{i.product_name}} </h4>
+      <p> {{i.description}}</p>
+      <h3 style = "text-decoration:line-through;"> Rs {{i.ActualPrice}}</h3>
+      <h3 id = "pricepr{{i.id}}" style = "border:1px solid blue; font-weight:bold; background-color:aqua; color:red;">  Rs {{i.discountedprice}} </h3>
+</div>
+          <div class = "row">
+                    <span id = "divpr{{i.id}}" class = "divpr">
+           <button class = "btn btn-primary cart mx-3 col-12 my-3" style = "transform:translateX(20px);"  id = "pr{{i.id}}" > Add To Cart</button>
+                    </span>
+            <a class = "btn btn-primary cart mx-3 my-2 col-7" style = "transform:translateX(20px);"  id = "qv{{i.id}}" href = "/shop/product/{{i.id}}"> QuickView</a>
+                    </div>
+
+    </div>
+          {% if forloop.counter == 5 %}
+            </div>
+    </div>
+      <div class = "carousel-item">
+          <div class = "card-group">
+
+
+              {% elif forloop.counter|divisibleby:5 and not forloop.last %}
+          </div> </div>
+            <div class = "carousel-item">
+                <div class = "card-group">
+                    {% endif %}
+    {% endfor %}
+                </div>
+            </div>
+<!--      <div class = "carousel-item">-->
+<!--          <div class = "card-group">-->
+<!--              {% for i in product|slice:"5:" %}-->
+<!--              <div class="card" style="width: 14rem;">-->
+<!--  <img src="/media/{{i.image}}" class="card-img-top" alt="...">-->
+<!--  <div class="card-body">-->
+<!--    <h4 class = "card-title" id = "namepr1{{i.id}}"> {{i.product_name}} </h4>-->
+<!--      <p> {{i.description}}</p>-->
+<!--      <h3 style = "text-decoration: line-through;"> Rs. {{i.ActualPrice}}</h3>-->
+<!--      <h3 id = "pricepr1{{i.id}}" style = "border:1px solid blue; font-weight:bold; background-color:aqua; color:red;"> Rs {{i.discountedprice}} </h3>-->
+<!--</div>-->
+<!--                  <div class = "row">-->
+<!--                    <span id = "divpr1{{i.id}}" class = "divpr">-->
+<!--           <button class = "btn btn-primary cart mx-3 col-12 my-3" style = "transform:translateX(20px);"  id = "pr1{{i.id}}" > Add To Cart</button>-->
+<!--                    </span>-->
+<!--            <a class = "btn btn-primary cart mx-3 my-2 col-7" style = "transform:translateX(20px);"  id = "qv1{{i.id}}" href = "/shop/product/{{product.id}}"> QuickView</a>-->
+<!--                    </div>-->
+
+<!--    </div>-->
+<!--              {% if forloop.counter|divisibleby:5 and not forloop.last %}-->
+<!--          </div>  </div>-->
+<!--      <div class = "carousel-item">-->
+<!--          <div class = "card-group">-->
+<!--              {% endif %}-->
+
+<!--          {% endfor %}-->
+
+<!--          </div>-->
+<!--  </div>-->
+
+<!--  </div>-->
+  </div>
+   </div>
+</div>
+
+{% endblock %}
+
+
+{% block js %}
+<script>
+<!--if(localStorage.getItem('cart4')==null) {-->
+<!--    var cart = {}-->
+<!--}-->
+
+<!--else {-->
+<!--    cart = JSON.parse(localStorage.getItem('cart4'))-->
+<!--    var list = Object.values(cart)-->
+<!--    var z = 0-->
+<!--    for(var i=0; i<list.length; i++) {-->
+<!--            z+=list[i]-->
+<!--        }-->
+<!--        updateCart(cart)-->
+<!--}-->
+
+
+
+<!--$(".cart").click(function() {-->
+
+<!-- var id1 = this.id.toString()-->
+<!-- if(cart[id1]==null) {-->
+<!--    cart[id1] = 1-->
+<!-- }-->
+
+<!-- else {-->
+<!--    cart[id1]+=1-->
+<!--}-->
+
+<!--            updateCart(cart)-->
+<!--            localStorage.setItem('cart4', JSON.stringify(cart))-->
+<!--                var list = Object.values(cart)-->
+<!--                var z=0-->
+<!--                   for(var i=0; i<list.length; i++) {-->
+<!--                          z+=list[i]-->
+<!--                   }-->
+
+<!--                   document.getElementById('total').innerText = z-->
+
+<!--})-->
+
+<!--function updateCart(cart) {-->
+
+<!--    for(var item in cart) {-->
+<!--    document.getElementById('div'+item).innerHTML = "<button id = 'minus" + item+ "' class = 'btn btn-primary minus' > - </button> <span id = 'val" +item+ " ' >" + cart[item] + "</span>  <button id='plus" + item+ "' class='btn btn-primary plus' > + </button> "-->
+<!--    document.getElementById('div'+item).style.transform = "translateX(60px)"-->
+<!--    }-->
+
+<!--}-->
+
+<!--$('.divpr').on("click", "button.minus", function() {-->
+<!--console.log(cart)-->
+<!--    a = this.id.slice(7,);-->
+<!--        if(cart['pr'+a]>0) {-->
+<!--    cart['pr'+a] = cart['pr'+a] -1;-->
+<!--    }-->
+<!--   $("#valpr"+a+"").text(cart['pr'+a])-->
+<!--    updateCart(cart)-->
+<!--    list = Object.values(cart)-->
+<!--    var z=0-->
+<!--    for(var i=0; i<list.length; i++) {-->
+<!--        z+=list[i]-->
+<!--    }-->
+<!--    $('#total').text(z)-->
+<!--    localStorage.setItem('cart4', JSON.stringify(cart))-->
+<!--    updatePopover(cart)-->
+<!--});-->
+
+<!--$('.divpr1').on("click", "button.minus", function() {-->
+<!--console.log(cart)-->
+<!--    a = this.id.slice(8,);-->
+<!--        if(cart['pr1'+a]>0) {-->
+<!--    cart['pr1'+a] = cart['pr1'+a] -1;-->
+<!--    }-->
+<!--   $("#valpr1"+a+"").text(cart['pr1'+a])-->
+<!--    updateCart(cart)-->
+<!--    list = Object.values(cart)-->
+<!--    var z=0-->
+<!--    for(var i=0; i<list.length; i++) {-->
+<!--        z+=list[i]-->
+<!--    }-->
+<!--    $('#total').text(z)-->
+<!--    localStorage.setItem('cart4', JSON.stringify(cart))-->
+<!--    updatePopover(cart)-->
+<!--});-->
+
+<!--$('.divpr').on("click", "button.plus", function() {-->
+<!--console.log(cart)-->
+<!--    a = this.id.slice(6,);-->
+
+<!--    cart['pr'+a] = cart['pr'+a] +1;-->
+
+<!--   $("#valpr"+a+"").text(cart['pr'+a])-->
+<!--    updateCart(cart)-->
+<!--    list = Object.values(cart)-->
+<!--    var z=0-->
+<!--    for(var i=0; i<list.length; i++) {-->
+<!--        z+=list[i]-->
+<!--    }-->
+<!--    $('#total').text(z)-->
+<!--    localStorage.setItem('cart4', JSON.stringify(cart))-->
+<!--    updatePopover(cart)-->
+<!--});-->
+
+<!--$('.divpr1').on("click", "button.plus", function() {-->
+<!--console.log(cart)-->
+<!--    a = this.id.slice(7,);-->
+
+<!--    cart['pr1'+a] = cart['pr1'+a] +1;-->
+
+<!--   $("#valpr1"+a+"").text(cart['pr1'+a])-->
+<!--    updateCart(cart)-->
+<!--    list = Object.values(cart)-->
+<!--    var z=0-->
+<!--    for(var i=0; i<list.length; i++) {-->
+<!--        z+=list[i]-->
+<!--    }-->
+<!--    $('#total').text(z)-->
+<!--    localStorage.setItem('cart4', JSON.stringify(cart))-->
+<!--    updatePopover(cart)-->
+<!--});-->
+
+<!--updatePopover(cart)-->
+
+<!--function updatePopover(cart) {-->
+
+<!--    console.log("We are in the Pop Over Section Of the Sales")-->
+<!--    var popStr =""-->
+<!--    popStr = popStr + "<h5> Aapka Shopping Cart </h5>"-->
+<!--    var i=1-->
+<!--    popStr = popStr + "<h6> Sr.No. &nbsp;&nbsp;Name &nbsp;&nbsp;Qty&nbsp;&nbspTotalPrice </h6>"-->
+
+<!--    for(var item in cart) {-->
+<!--            if(cart[item]!=0) {-->
+<!--        popStr = popStr + i+ '.' + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + document.getElementById('name'+item).innerHTML.slice(0,8)+'...' + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + cart[item] + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + 'Rs.'+ cart[item]*parseInt(document.getElementById('disc'+item).innerText.slice(3,)) + '<br>'-->
+<!--        i+=1-->
+<!--        }-->
+<!--    }-->
+
+<!--    popStr = popStr + '<br>'-->
+<!--        var list = Object.values(cart)-->
+<!--        var z =0-->
+<!--        for(var i=0; i<list.length; i++) {-->
+<!--                z+=list[i]-->
+<!--         }-->
+<!--        if(z!=0) {-->
+<!--        popStr = popStr + "<a href = '/shop/checkout' class = 'btn btn-primary'> Proceed To checkOut </a> "-->
+<!--    }-->
+
+<!--    console.log(popStr)-->
+<!--      document.getElementById('popcart').setAttribute('data-content',popStr)-->
+<!--      $("#popcart").popover('show')-->
+
+<!--}-->
+
+
+<!--This is the correctly working code for cart -->
+
+<!--    if(localStorage.getItem('cart4')==null) {-->
+<!--      if(localStorage.getItem('cart3')!=null) {-->
+<!--        var cart = JSON.parse(localStorage.getItem('cart3'))-->
+<!--        localStorage.setItem('cart4',JSON.stringify(cart))-->
+<!--        cart = JSON.parse(localStorage.getItem('cart4'))-->
+<!--        list = Object.values(cart)-->
+<!--        var z=0-->
+<!--        for(var i=0; i<list.length; i++) {-->
+<!--                z+=list[i]-->
+<!--        }-->
+
+<!--        document.getElementById('total').innerText = z-->
+<!--        updateCart(cart)-->
+<!--        }-->
+
+<!--        else {-->
+<!--            var cart = {}-->
+<!--        }-->
+<!--    }-->
+
+<!--    else {-->
+
+<!--    cart = JSON.parse(localStorage.getItem('cart4'))-->
+<!--    localStorage.setItem('cart3',JSON.stringify(cart))-->
+<!--        list = Object.values(cart)-->
+<!--        var z=0-->
+<!--        for(var i=0; i<list.length; i++) {-->
+<!--                z+=list[i]-->
+<!--        }-->
+
+<!--        document.getElementById('total').innerText = z-->
+<!--        updateCart(cart)-->
+
+<!--    }-->
+
+
+
+<!--    if(localStorage.getItem('names1')==null) {-->
+<!--            if(localStorage.getItem('names')!=null) {-->
+<!--        var prname = JSON.parse(localStorage.getItem('names'))-->
+<!--        localStorage.setItem('names1',JSON.stringify(prname))-->
+<!--        }-->
+
+<!--        else {-->
+<!--            var prname = {}-->
+<!--        }-->
+<!--    }-->
+
+<!--    else {-->
+<!--        prname = JSON.parse(localStorage.getItem('names1'))-->
+<!--        localStorage.setItem('names',JSON.stringify(prname))-->
+<!--    }-->
+
+<!--    if(localStorage.getItem('cost1')==null) {-->
+<!--            if(localStorage.getItem('cost')!=null) {-->
+<!--        var cost = JSON.parse(localStorage.getItem('cost'))-->
+<!--        localStorage.setItem('cost1',JSON.stringify(cost))-->
+<!--        }-->
+
+<!--        else {-->
+<!--            var cost = {}-->
+<!--        }-->
+<!--    }-->
+
+<!--    else {-->
+<!--        cost = JSON.parse(localStorage.getItem('cost1'))-->
+<!--        localStorage.setItem('cost',JSON.stringify(cost))-->
+<!--    }-->
+
+<!--    $(document).ready(function() {-->
+<!--        $('.cart').click(function() {-->
+<!--            var id1 = event.target.id.toString()-->
+<!--            if(cart[id1]==null) {-->
+<!--                cart[id1] = 1-->
+<!--            }-->
+
+<!--            else {-->
+<!--                cart[id1]+=1-->
+<!--            }-->
+
+<!--            if(prname[id1]==null) {-->
+<!--                prname[id1] = document.getElementById('name'+id1).innerHTML.slice(0,8)-->
+<!--            }-->
+
+<!--            if(cost[id1]==null) {-->
+<!--                cost[id1] = document.getElementById('price'+id1).innerHTML.slice(4,)-->
+<!--            }-->
+
+<!--            updateCart(cart)-->
+<!--            updatePopover(cart)-->
+<!--            localStorage.setItem('cart3', JSON.stringify(cart))-->
+<!--            localStorage.setItem('cart4', JSON.stringify(cart))-->
+<!--            localStorage.setItem('names',JSON.stringify(prname))-->
+<!--            localStorage.setItem('names1',JSON.stringify(prname))-->
+<!--            localStorage.setItem('cost',JSON.stringify(cost))-->
+<!--            localStorage.setItem('cost1',JSON.stringify(cost))-->
+<!--                var list = Object.values(cart)-->
+<!--                var z=0-->
+<!--                   for(var i=0; i<list.length; i++) {-->
+<!--                          z+=list[i]-->
+<!--                   }-->
+
+<!--                   document.getElementById('total').innerText = z-->
+
+<!--        })-->
+<!--    })-->
+
+<!--updatePopover(cart)-->
+
+<!--function updatePopover(cart) {-->
+
+<!--    console.log("We are inside the Update Popover Section")-->
+<!--    var popStr = ""-->
+<!--    popStr = popStr + "<h5> Aapka Shopping Cart </h5>"-->
+<!--    var i=1-->
+
+<!--    popStr = popStr + "<h6> Sr.No. &nbsp;&nbsp;Name &nbsp;&nbsp;Qty&nbsp;&nbspTotalPrice </h6>"-->
+
+<!--    for(var item in cart) {-->
+<!--            if(cart[item]!=0) {-->
+<!--        popStr = popStr + i+ '.' + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + prname[item]+'...' + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + cart[item] + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + 'Rs.'+ cart[item]*parseInt(cost[item]) + '<br>'-->
+<!--        i+=1-->
+<!--        }-->
+<!--    }-->
+<!--        popStr = popStr + '<br>'-->
+<!--        var list = Object.values(cart)-->
+<!--        var z =0-->
+<!--        for(var i=0; i<list.length; i++) {-->
+<!--                z+=list[i]-->
+<!--         }-->
+<!--        if(z!=0) {-->
+<!--        popStr = popStr + "<a href = '/shop/checkout' class = 'btn btn-primary'> Proceed To checkOut </a> "-->
+<!--    }-->
+
+<!--    console.log(popStr)-->
+<!--      document.getElementById('popcart').setAttribute('data-content',popStr)-->
+<!--      $("#popcart").popover('show')-->
+
+<!--}-->
+
+<!--function updateCart(cart) {-->
+
+<!--    for(var item in cart) {-->
+<!--        if(parseInt(item.slice(2,))>0 && parseInt(item.slice(2,)) < 26  ) {-->
+<!--    document.getElementById('div'+item).innerHTML = "<button id = 'minus" + item+ "' class = 'btn btn-primary minus' > - </button> <span id = 'val" +item+ " ' >" + cart[item] + "</span>  <button id='plus" + item+ "' class='btn btn-primary plus' > + </button> "-->
+<!--    document.getElementById('div'+item).style.transform = "translateX(60px)"-->
+
+<!--        }-->
+<!--    }-->
+<!--&lt;!&ndash;    updatePopover(cart)&ndash;&gt;-->
+<!--}-->
+
+
+<!--$('.divpr').on("click", "button.minus", function() {-->
+<!--console.log(cart)-->
+<!--    a = this.id.slice(7,);-->
+<!--        if(cart['pr'+a]>0) {-->
+<!--    cart['pr'+a] = cart['pr'+a] -1;-->
+<!--    }-->
+<!--   $("#valpr"+a+"").text(cart['pr'+a])-->
+<!--    updateCart(cart)-->
+<!--    list = Object.values(cart)-->
+<!--    var z=0-->
+<!--    for(var i=0; i<list.length; i++) {-->
+<!--        z+=list[i]-->
+<!--    }-->
+<!--    $('#total').text(z)-->
+<!--    localStorage.setItem('cart4', JSON.stringify(cart))-->
+<!--    localStorage.setItem('cart3', JSON.stringify(cart))-->
+<!--     updatePopover(cart)-->
+
+<!--});-->
+
+<!--$(".divpr").on("click", "button.plus", function() {-->
+
+<!--    var b = this.id.slice(6,)-->
+<!--    var temp1 = cart['pr'+b]-->
+<!--    temp1 = temp1 +1-->
+<!--    cart['pr'+b] = temp1-->
+<!--    $("#valpr"+b+"").text(cart['pr'+b])-->
+<!--    console.log(cart)-->
+<!--    updateCart(cart)-->
+<!--    var list = Object.values(cart)-->
+<!--    var z=0-->
+<!--    for(var i=0; i<list.length; i++) {-->
+<!--        z+=list[i]-->
+<!--    }-->
+<!--    $('#total').text(z)-->
+<!--    localStorage.setItem('cart4', JSON.stringify(cart))-->
+<!--    localStorage.setItem('cart3', JSON.stringify(cart))-->
+<!--         updatePopover(cart)-->
+<!--})-->
+
+
+<!-- Ek Aur Try For making the cart using a single variable that is cart3-->
+
+<!--Best Code For Cart and is Working Perfectly Fine.-->
+
+    if(localStorage.getItem('cart3')==null) {
+        var cart = {}
+    }
+
+    else {
+
+   var cart = JSON.parse(localStorage.getItem('cart3'))
+   console.log(cart)
+    localStorage.setItem('cart3',JSON.stringify(cart))
+        var list = Object.values(cart)
+        var z=0
+        for(var i=0; i<list.length; i++) {
+                z+=list[i]
+        }
+
+        document.getElementById('total').innerText = z
+        updateCart(cart)
+
+    }
+
+
+
+    if(localStorage.getItem('names')==null) {
+            var prname = {}
+    }
+
+    else {
+         var prname = JSON.parse(localStorage.getItem('names'))
+        localStorage.setItem('names',JSON.stringify(prname))
+    }
+
+    if(localStorage.getItem('cost')==null) {
+            var cost = {}
+    }
+
+    else {
+        var cost = JSON.parse(localStorage.getItem('cost'))
+        localStorage.setItem('cost',JSON.stringify(cost))
+    }
+
+    $(document).ready(function() {
+        $('.cart').click(function() {
+            var id1 = event.target.id.toString()
+            if(cart[id1]==null) {
+                cart[id1] = 1
+            }
+
+            else {
+                cart[id1]+=1
+            }
+
+            if(prname[id1]==null) {
+                prname[id1] = document.getElementById('name'+id1).innerHTML.slice(0,8)
+            }
+
+            if(cost[id1]==null) {
+                cost[id1] = document.getElementById('price'+id1).innerHTML.slice(4,)
+            }
+
+            updateCart(cart)
+            updatePopover(cart)
+            localStorage.setItem('cart3', JSON.stringify(cart))
+
+            localStorage.setItem('names',JSON.stringify(prname))
+
+            localStorage.setItem('cost',JSON.stringify(cost))
+
+                var list = Object.values(cart)
+                var z=0
+                   for(var i=0; i<list.length; i++) {
+                          z+=list[i]
+                   }
+
+                   document.getElementById('total').innerText = z
+
+        })
+    })
+
+updatePopover(cart)
+
+function updatePopover(cart) {
+
+    console.log("We are inside the Update Popover Section")
+    var popStr = ""
+    popStr = popStr + "<h5> Aapka Shopping Cart </h5>"
+    var i=1
+
+    popStr = popStr + "<h6> Sr.No. &nbsp;&nbsp;Name &nbsp;&nbsp;Qty&nbsp;&nbspTotalPrice </h6>"
+
+    for(var item in cart) {
+            if(cart[item]!=0) {
+        popStr = popStr + i+ '.' + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + prname[item]+'...' + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + cart[item] + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + 'Rs.'+ cart[item]*parseInt(cost[item]) + '<br>'
+        i+=1
+        }
+    }
+        popStr = popStr + '<br>'
+        var list = Object.values(cart)
+        var z =0
+        for(var i=0; i<list.length; i++) {
+                z+=list[i]
+         }
+        if(z!=0) {
+        popStr = popStr + "<a href = '/shop/checkout' class = 'btn btn-primary'> Proceed To checkOut </a> "
+    }
+
+    console.log(popStr)
+      document.getElementById('popcart').setAttribute('data-content',popStr)
+      $("#popcart").popover('show')
+
+}
+
+function updateCart(cart) {
+
+    for(var item in cart) {
+        if(parseInt(item.slice(2,))>0 && parseInt(item.slice(2,)) < 26  ) {
+    document.getElementById('div'+item).innerHTML = "<button id = 'minus" + item+ "' class = 'btn btn-primary minus' > - </button> <span id = 'val" +item+ " ' >" + cart[item] + "</span>  <button id='plus" + item+ "' class='btn btn-primary plus' > + </button> "
+    document.getElementById('div'+item).style.transform = "translateX(60px)"
+
+        }
+    }
+<!--    updatePopover(cart)-->
+}
+
+
+$('.divpr').on("click", "button.minus", function() {
+console.log(cart)
+    a = this.id.slice(7,);
+        if(cart['pr'+a]>0) {
+    cart['pr'+a] = cart['pr'+a] -1;
+    }
+   $("#valpr"+a+"").text(cart['pr'+a])
+    updateCart(cart)
+    list = Object.values(cart)
+    var z=0
+    for(var i=0; i<list.length; i++) {
+        z+=list[i]
+    }
+    $('#total').text(z)
+
+    localStorage.setItem('cart3', JSON.stringify(cart))
+     updatePopover(cart)
+
+});
+
+$(".divpr").on("click", "button.plus", function() {
+
+    var b = this.id.slice(6,)
+    var temp1 = cart['pr'+b]
+    temp1 = temp1 +1
+    cart['pr'+b] = temp1
+    $("#valpr"+b+"").text(cart['pr'+b])
+    console.log(cart)
+    updateCart(cart)
+    var list = Object.values(cart)
+    var z=0
+    for(var i=0; i<list.length; i++) {
+        z+=list[i]
+    }
+    $('#total').text(z)
+
+    localStorage.setItem('cart3', JSON.stringify(cart))
+         updatePopover(cart)
+})
+
+
+</script>
+
+{% endblock %}
+
+

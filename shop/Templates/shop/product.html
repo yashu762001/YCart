@@ -1,0 +1,150 @@
+{% extends 'shop/basic.html' %}
+
+{% block title %}
+
+{{product.product_name}}
+
+{% endblock %}
+
+
+{% block body %}
+<div class = "container">
+<div class = "row my-4">
+    <img src = "/media/{{product.image}}" class = 'col-5' id = "img{{product.id}}" onmouseover="func()" onmouseout="leave()" />
+    <div class = "col-7" style = "font-size:32px;">
+        <h1 style = "color: black; font-weight:bold; ">{{product.product_name}} </h1>
+        <h3> <b> Rs. {{product.ActualPrice}}</b> </h3>
+        <h3>Category: {{product.category}}</h3>
+        <p> {{product.description}}</p>
+        <br> <br>
+        <button class = 'btn btn-primary'> Buy Now</button>
+
+    </div>
+    <h5> * For adding this item to cart go to the home page and click on add to cart.</h5>
+</div>
+
+
+</div>
+
+
+{% endblock %}
+
+{% block js %}
+    <script>
+    function func() {
+    var a = event.target.id
+    document.getElementById(a).style.width = "700px"
+    document.getElementById(a).style.height = "700px"
+
+}
+
+function leave() {
+
+var b = event.target.id
+document.getElementById(b).style.width = '500px'
+document.getElementById(b).style.height = '500px'
+
+}
+
+if(localStorage.getItem('cart3')==null) {
+        var cart = {}
+    }
+
+    else {
+        cart = JSON.parse(localStorage.getItem('cart3'))
+        document.getElementById('total').innerText = Object.keys(cart).length
+    }
+
+    $(document).ready(function() {
+        $('.cart').click(function() {
+            var id1 = this.id.toString()
+            if(cart[id1]==null) {
+                cart[id1] = 1
+            }
+
+            else {
+                cart[id1]+=1
+            }
+
+            console.log(cart)
+            localStorage.setItem('cart3', JSON.stringify(cart))
+           document.getElementById('total').innerText = Object.keys(cart).length
+
+        })
+    })
+
+                    <!--    The Cart Code  -->
+
+if(localStorage.getItem('cart3')==null) {
+        var cart = {}
+    }
+
+    else {
+
+   var cart = JSON.parse(localStorage.getItem('cart3'))
+   console.log(cart)
+    localStorage.setItem('cart3',JSON.stringify(cart))
+        var list = Object.values(cart)
+        var z=0
+        for(var i=0; i<list.length; i++) {
+                z+=list[i]
+        }
+
+        document.getElementById('total').innerText = z
+
+
+    }
+
+    if(localStorage.getItem('names')==null) {
+            var prname = {}
+    }
+
+    else {
+         var prname = JSON.parse(localStorage.getItem('names'))
+        localStorage.setItem('names',JSON.stringify(prname))
+    }
+
+    if(localStorage.getItem('cost')==null) {
+            var cost = {}
+    }
+
+    else {
+        var cost = JSON.parse(localStorage.getItem('cost'))
+        localStorage.setItem('cost',JSON.stringify(cost))
+    }
+
+updatePopover(cart)
+
+function updatePopover(cart) {
+
+    console.log("We are inside the Update Popover Section")
+    var popStr = ""
+    popStr = popStr + "<h5> Aapka Shopping Cart </h5>"
+    var i=1
+
+    popStr = popStr + "<h6> Sr.No. &nbsp;&nbsp;Name &nbsp;&nbsp;Qty&nbsp;&nbspTotalPrice </h6>"
+
+    for(var item in cart) {
+            if(cart[item]!=0) {
+        popStr = popStr + i+ '.' + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + prname[item]+'...' + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + cart[item] + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + 'Rs.'+ cart[item]*parseInt(cost[item]) + '<br>'
+        i+=1
+        }
+    }
+        popStr = popStr + '<br>'
+        var list = Object.values(cart)
+        var z =0
+        for(var i=0; i<list.length; i++) {
+                z+=list[i]
+         }
+        if(z!=0) {
+        popStr = popStr + "<a href = '/shop/checkout' class = 'btn btn-primary'> Proceed To checkOut </a> "
+    }
+
+    console.log(popStr)
+      document.getElementById('popcart').setAttribute('data-content',popStr)
+      $("#popcart").popover('show')
+
+}
+</script>
+{% endblock %}
+
